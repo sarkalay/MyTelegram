@@ -4,14 +4,30 @@ import telegram.error
 
 TOKEN = 'YOUR_BOT_TOKEN'
 
+# Message ကို ၂ မိနစ်အကြာ ဖျက်ဖို့ function
+async def delete_message(context: ContextTypes.DEFAULT_TYPE):
+    job = context.job
+    chat_id = job.data['chat_id']
+    message_id = job.data['message_id']
+    try:
+        await context.bot.delete_message(chat_id=chat_id, message_id=message_id)
+    except telegram.error.BadRequest as e:
+        print(f"Delete Error: {e}")
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message:
         return
     try:
-        await update.message.reply_text(
+        message = await update.message.reply_text(
             'ကျေးဇူးပြုပြီး အောက်က command တွေကို သုံးပါ:\n'
             '/node - Node နဲ့ ပတ်သက်တဲ့ အချက်အလက်တွေ ကြည့်ရန်\n'
             '/script - Script နဲ့ ပတ်သက်တဲ့ အချက်အလက်တွေ ကြည့်ရန်'
+        )
+        # ၂ မိနစ် (120 စက္ကန့်) အကြာ message ဖျက်ဖို့ job ထည့်ပါ
+        context.job_queue.run_once(
+            delete_message,
+            120,  # ၂ မိနစ်
+            data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
         )
     except telegram.error.BadRequest as e:
         print(f"Start Error: {e}")
@@ -32,6 +48,12 @@ async def node(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
     try:
         await update.message.reply_text('Node နဲ့ ပတ်သက်တဲ့ အချက်အလက်များ:', reply_markup=reply_markup)
+    # ၂ မိနစ် အကြာ message ဖျက်ဖို့ job ထည့်ပါ
+        context.job_queue.run_once(
+            delete_message,
+            120,  # ၂ မိနစ်
+            data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
+        )
     except telegram.error.BadRequest as e:
         print(f"Node Error: {e}")
 
@@ -82,6 +104,12 @@ async def script(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
     try:
         await update.message.reply_text('Script နဲ့ ပတ်သက်တဲ့ အချက်အလက်များ:', reply_markup=reply_markup)
+    # ၂ မိနစ် အကြာ message ဖျက်ဖို့ job ထည့်ပါ
+        context.job_queue.run_once(
+            delete_message,
+            120,  # ၂ မိနစ်
+            data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
+        )
     except telegram.error.BadRequest as e:
         print(f"Script Error: {e}")
 # Main function မှာ command handler တွေ ထည့်ပေးပါ
