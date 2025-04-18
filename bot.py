@@ -28,7 +28,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"Scheduling deletion for message: chat_id={update.message.chat_id}, message_id={message.message_id}")
         context.job_queue.run_once(
             delete_message,
-            30,
+            10,
             data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
         )
     except telegram.error.BadRequest as e:
@@ -54,7 +54,7 @@ async def node(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"Scheduling deletion for message: chat_id={update.message.chat_id}, message_id={message.message_id}")
         context.job_queue.run_once(
             delete_message,
-            30,  # 30 စက္ကန့်အဖြစ် ပြောင်းလဲ
+            25,  # 25 စက္ကန့်အဖြစ် ပြောင်းလဲ
             data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
         )
     except telegram.error.BadRequest as e:
@@ -105,4 +105,23 @@ async def script(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     try:
-        message = await update
+        message = await update.message.reply_text('Script နဲ့ ပတ်သက်တဲ့ အချက်အလက်များ:', reply_markup=reply_markup)
+        print(f"Scheduling deletion for message: chat_id={update.message.chat_id}, message_id={message.message_id}")
+        context.job_queue.run_once(
+            delete_message,
+            25,  # 25 စက္ကန့်အဖြစ် ပြောင်းလဲ
+            data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
+        )
+    except telegram.error.BadRequest as e:
+        print(f"Script Error: {e}")
+
+def main():
+    app = Application.builder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("node", node))
+    app.add_handler(CommandHandler("script", script))
+    print("Starting bot polling...")
+    app.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)
+
+if __name__ == '__main__':
+    main()
