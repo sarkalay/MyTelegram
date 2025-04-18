@@ -2,7 +2,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 import telegram.error
 
-TOKEN = 'YOUR_BOT_TOKEN'
+TOKEN = 'YOUR_BOT_TOKEN'  # BotFather ကနေ ရထားတဲ့ token ကို ဒီမှာ ထည့်ပါ
 
 async def delete_message(context: ContextTypes.DEFAULT_TYPE):
     job = context.job
@@ -12,11 +12,12 @@ async def delete_message(context: ContextTypes.DEFAULT_TYPE):
     try:
         await context.bot.delete_message(chat_id=chat_id, message_id=message_id)
         print(f"Message deleted successfully: chat_id={chat_id}, message_id={message_id}")
-    except telegram.error.BadRequest as e:
-        print(f"Delete Error: {e}")
+    except telegram.error.TelegramError as e:
+        print(f"Delete Error: {e}, chat_id={chat_id}, message_id={message_id}")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message:
+        print("No message found in start command")
         return
     try:
         message = await update.message.reply_text(
@@ -27,7 +28,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"Scheduling deletion for message: chat_id={update.message.chat_id}, message_id={message.message_id}")
         context.job_queue.run_once(
             delete_message,
-            10,  # စမ်းသပ်ဖို့ ၁၀ စက္ကန့်
+            30,
             data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
         )
     except telegram.error.BadRequest as e:
@@ -35,6 +36,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def node(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message:
+        print("No message found in node command")
         return
     keyboard = [
         [InlineKeyboardButton("✅ NODE Eclipse", url='https://t.me/c/2309219455/9/30346')],
@@ -52,7 +54,7 @@ async def node(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"Scheduling deletion for message: chat_id={update.message.chat_id}, message_id={message.message_id}")
         context.job_queue.run_once(
             delete_message,
-            30,  # စမ်းသပ်ဖို့ ၃၀ စက္ကန့်
+            30,  # 30 စက္ကန့်အဖြစ် ပြောင်းလဲ
             data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
         )
     except telegram.error.BadRequest as e:
@@ -60,6 +62,7 @@ async def node(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def script(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message:
+        print("No message found in script command")
         return
     keyboard = [
         [InlineKeyboardButton("📜 Script Anime", url='https://t.me/c/2309219455/43/32714')],
@@ -102,22 +105,4 @@ async def script(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     try:
-        message = await update.message.reply_text('Script နဲ့ ပတ်သက်တဲ့ အချက်အလက်များ:', reply_markup=reply_markup)
-        print(f"Scheduling deletion for message: chat_id={update.message.chat_id}, message_id={message.message_id}")
-        context.job_queue.run_once(
-            delete_message,
-            30,  # စမ်းသပ်ဖို့ ၃၀ စက္ကန့်
-            data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
-        )
-    except telegram.error.BadRequest as e:
-        print(f"Script Error: {e}")
-
-def main():
-    app = Application.builder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("node", node))
-    app.add_handler(CommandHandler("script", script))
-    app.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)
-
-if __name__ == '__main__':
-    main()
+        message = await update
