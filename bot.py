@@ -23,7 +23,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         message = await update.message.reply_text(
             'ကျေးဇူးပြုပြီး အောက်က command တွေကို သုံးပါ:\n'
             '/node - Node နဲ့ ပတ်သက်တဲ့ အချက်အလက်တွေ ကြည့်ရန်\n'
-            '/script - Script နဲ့ ပတ်သက်တဲ့ အချက်အလက်တွေ ကြည့်ရန်'
+            '/script - Script နဲ့ ပတ်သက်တဲ့ အချက်အလက်တွေ ကြည့်ရန်\n'
+            '/testnet - Testnet နဲ့ ပတ်သက်တဲ့ အချက်အလက်တွေ ကြည့်ရန်'
         )
         print(f"Scheduling deletion for message: chat_id={update.message.chat_id}, message_id={message.message_id}")
         context.job_queue.run_once(
@@ -54,7 +55,7 @@ async def node(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"Scheduling deletion for message: chat_id={update.message.chat_id}, message_id={message.message_id}")
         context.job_queue.run_once(
             delete_message,
-            25,  # 25 စက္ကန့်အဖြစ် ပြောင်းလဲ
+            25,
             data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
         )
     except telegram.error.BadRequest as e:
@@ -65,34 +66,21 @@ async def script(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print("No message found in script command")
         return
     keyboard = [
-        [InlineKeyboardButton("📜 Script Anime", url='https://t.me/c/2309219455/43/32714')],
+        [InlineKeyboardButton("📜 Script Sowin Taker", url='https://t.me/airdropbombnode/43/35005')],
         [InlineKeyboardButton("📜 Script 3dos", url='https://t.me/c/2309219455/43/25616')],
-        [InlineKeyboardButton("📜 Script Prior Testnet", url='https://t.me/c/2309219455/43/25405')],
         [InlineKeyboardButton("📜 Script openledger", url='https://t.me/c/2309219455/43/24282')],
-        [InlineKeyboardButton("📜 Script Blockscout", url='https://t.me/c/2309219455/43/20603')],
         [InlineKeyboardButton("📜 Script Parasail", url='https://t.me/c/2309219455/43/20225')],
-        [InlineKeyboardButton("📜 Script Billion", url='https://t.me/c/2309219455/43/19955')],
-        [InlineKeyboardButton("📜 Script Coresky", url='https://t.me/c/2309219455/43/19892')],
-        [InlineKeyboardButton("📜 Script InkGM", url='https://t.me/c/2309219455/43/19785')],
         [InlineKeyboardButton("📜 Script Voltix", url='https://t.me/c/2309219455/43/19216')],
-        [InlineKeyboardButton("📜 Script Oogies", url='https://t.me/c/2309219455/43/18482')],
         [InlineKeyboardButton("📜 Script Dawn", url='https://t.me/c/2309219455/43/18365')],
         [InlineKeyboardButton("📜 Script Magic Newton", url='https://t.me/c/2309219455/43/16179')],
-        [InlineKeyboardButton("📜 Script 0glabs Auto Swap", url='https://t.me/c/2309219455/43/16116')],
         [InlineKeyboardButton("📜 Script Hipin", url='https://t.me/c/2309219455/43/15328')],
         [InlineKeyboardButton("📜 Script Despeed", url='https://t.me/c/2309219455/43/26159')],
         [InlineKeyboardButton("📜 Script XOX", url='https://t.me/c/2309219455/43/14140')],
         [InlineKeyboardButton("📜 Script Teneo", url='https://t.me/c/2309219455/43/14021')],
-        [InlineKeyboardButton("📜 Script Arichain", url='https://t.me/c/2309219455/43/13244')],
         [InlineKeyboardButton("📜 Script Stork", url='https://t.me/c/2309219455/43/12769')],
-        [InlineKeyboardButton("📜 Script OpenSci", url='https://t.me/c/2309219455/43/12381')],
         [InlineKeyboardButton("📜 Script MinionLab", url='https://t.me/c/2309219455/43/11864')],
-        [InlineKeyboardButton("📜 Script InfinityGround", url='https://t.me/c/2309219455/43/11774')],
-        [InlineKeyboardButton("📜 Script HanaNetwork", url='https://t.me/c/2309219455/43/9586')],
-        [InlineKeyboardButton("📜 Script HAHA Wallet", url='https://t.me/c/2309219455/43/9454')],
         [InlineKeyboardButton("📜 Script MultipleNetwork", url='https://t.me/c/2309219455/43/9231')],
         [InlineKeyboardButton("📜 Script NodeGo", url='https://t.me/c/2309219455/43/8044')],
-        [InlineKeyboardButton("📜 Script GoKiteAI", url='https://t.me/c/2309219455/43/13565')],
         [InlineKeyboardButton("📜 Script Naoris Protocol", url='https://t.me/c/2309219455/43/6242')],
         [InlineKeyboardButton("📜 Script Kaleido", url='https://t.me/c/2309219455/43/5903')],
         [InlineKeyboardButton("📜 Script Taker", url='https://t.me/c/2309219455/43/4369')],
@@ -109,17 +97,52 @@ async def script(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print(f"Scheduling deletion for message: chat_id={update.message.chat_id}, message_id={message.message_id}")
         context.job_queue.run_once(
             delete_message,
-            25,  # 25 စက္ကန့်အဖြစ် ပြောင်းလဲ
+            25,
             data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
         )
     except telegram.error.BadRequest as e:
         print(f"Script Error: {e}")
+
+async def testnet(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not update.message:
+        print("No message found in testnet command")
+        return
+    keyboard = [
+        [InlineKeyboardButton("🌐 Testnet R2Money Testnet", url='https://t.me/airdropbombnode/43/35145')],
+        [InlineKeyboardButton("🌐 Testnet Cess Testnet", url='https://t.me/airdropbombnode/43/33450?single')],
+        [InlineKeyboardButton("🌐 Testnet Prior Testnet", url='https://t.me/c/2309219455/43/25405')],
+        [InlineKeyboardButton("🌐 Testnet 0glabs Auto Swap", url='https://t.me/c/2309219455/43/16116')],
+        [InlineKeyboardButton("🌐 Testnet InfinityGround", url='https://t.me/c/2309219455/43/11774')],
+        [InlineKeyboardButton("🌐 Testnet GoKiteAI", url='https://t.me/c/2309219455/43/13565')],
+        [InlineKeyboardButton("🌐 Testnet openSci", url='https://t.me/c/2309219455/43/12381')],
+        [InlineKeyboardButton("🌐 Testnet Coresky", url='https://t.me/c/2309219455/43/19892')],
+        [InlineKeyboardButton("🌐 Testnet Billion", url='https://t.me/c/2309219455/43/19955')],
+        [InlineKeyboardButton("🌐 Testnet Anime", url='https://t.me/c/2309219455/43/32714')],
+        [InlineKeyboardButton("🌐 Testnet InkGM", url='https://t.me/c/2309219455/43/19785')],
+        [InlineKeyboardButton("🌐 Testnet Blockscout", url='https://t.me/c/2309219455/43/20603')],
+        [InlineKeyboardButton("🌐 Testnet HAHA Wallet", url='https://t.me/c/2309219455/43/9454')],
+        [InlineKeyboardButton("🌐 Testnet HanaNetwork", url='https://t.me/c/2309219455/43/9586')],
+        [InlineKeyboardButton("🌐 Testnet Arichain", url='https://t.me/c/2309219455/43/13244')],
+        # ဒီမှာ သင်လိုချင်တဲ့ testnet တွေရဲ့ မှန်ကန်တဲ့ Telegram link တွေ ထည့်ပါ
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    try:
+        message = await update.message.reply_text('Testnet နဲ့ ပတ်သက်တဲ့ အချက်အလက်များ:', reply_markup=reply_markup)
+        print(f"Scheduling deletion for message: chat_id={update.message.chat_id}, message_id={message.message_id}")
+        context.job_queue.run_once(
+            delete_message,
+            25,
+            data={'chat_id': update.message.chat_id, 'message_id': message.message_id}
+        )
+    except telegram.error.BadRequest as e:
+        print(f"Testnet Error: {e}")
 
 def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("node", node))
     app.add_handler(CommandHandler("script", script))
+    app.add_handler(CommandHandler("testnet", testnet))  # New handler for testnet
     print("Starting bot polling...")
     app.run_polling(allowed_updates=Update.ALL_TYPES, drop_pending_updates=True)
 
