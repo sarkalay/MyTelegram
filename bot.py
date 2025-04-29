@@ -40,6 +40,7 @@ async def node(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print("No message found in node command")
         return
     keyboard = [
+        [InlineKeyboardButton("✅ NODE Orochi", url='https://t.me/airdropbombnode/43/35863')],
         [InlineKeyboardButton("✅ NODE Eclipse", url='https://t.me/c/2309219455/9/30346')],
         [InlineKeyboardButton("✅ NODE Dria", url='https://t.me/c/2309219455/9/17013')],
         [InlineKeyboardButton("✅ NODE Gaianet", url='https://t.me/c/2309219455/9/4780')],
@@ -108,9 +109,12 @@ async def testnet(update: Update, context: ContextTypes.DEFAULT_TYPE):
         print("No message found in testnet command")
         return
     keyboard = [
+        [InlineKeyboardButton("🌐 Testnet 0G Galileo V3", url='https://t.me/airdropbombnode/43/40856')],
         [InlineKeyboardButton("🌐 Testnet R2Money Testnet", url='https://t.me/airdropbombnode/43/35145')],
+        [InlineKeyboardButton("🌐 Testnet humanity protocol", url='https://t.me/airdropbombnode/43/36523')],
+        [InlineKeyboardButton("🌐 Testnet Gpunet", url='https://t.me/airdropbombnode/43/35243')],
         [InlineKeyboardButton("🌐 Testnet Cess Testnet", url='https://t.me/airdropbombnode/43/33450?single')],
-        [InlineKeyboardButton("🌐 Testnet Prior Testnet", url='https://t.me/c/2309219455/43/25405')],
+        [InlineKeyboardButton("🌐 Testnet Prior TestnetV2", url='https://t.me/airdropbombnode/43/35906')],
         [InlineKeyboardButton("🌐 Testnet 0glabs Auto Swap", url='https://t.me/c/2309219455/43/16116')],
         [InlineKeyboardButton("🌐 Testnet InfinityGround", url='https://t.me/c/2309219455/43/11774')],
         [InlineKeyboardButton("🌐 Testnet GoKiteAI", url='https://t.me/c/2309219455/43/13565')],
