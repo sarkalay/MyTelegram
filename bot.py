@@ -83,6 +83,7 @@ async def script(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message:
         return
     keyboard = [
+        [InlineKeyboardButton("📜 Script polaris", url='https://t.me/c/2309219455/43/310393')],
         [InlineKeyboardButton("📜 Script Humanoid", url='https://t.me/c/2309219455/43/300946')],
         [InlineKeyboardButton("📜 Script Wallet Drainer Script", url='https://t.me/c/2309219455/43/298934')],
         [InlineKeyboardButton("📜 Script X1", url='https://t.me/c/2309219455/43/298724')],
