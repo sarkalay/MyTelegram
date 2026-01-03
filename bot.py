@@ -83,6 +83,8 @@ async def script(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message:
         return
     keyboard = [
+        [InlineKeyboardButton("📜 Script ARCfaucet", url='https://t.me/c/2309219455/43/311168')],
+        [InlineKeyboardButton("📜 Script polarisfaucet", url='https://t.me/c/2309219455/43/310390')],
         [InlineKeyboardButton("📜 Script polaris", url='https://t.me/c/2309219455/43/310393')],
         [InlineKeyboardButton("📜 Script Humanoid", url='https://t.me/c/2309219455/43/300946')],
         [InlineKeyboardButton("📜 Script Wallet Drainer Script", url='https://t.me/c/2309219455/43/298934')],
@@ -112,6 +114,7 @@ async def testnet(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not update.message:
         return
     keyboard = [
+        [InlineKeyboardButton("🌐 Testnet ARC", url='https://t.me/c/2309219455/25180/311021')],
         [InlineKeyboardButton("🌐 Testnet Hotstuff", url='https://t.me/c/2309219455/25180/308522')],
         [InlineKeyboardButton("🌐 Testnet Polaris", url='https://t.me/c/2309219455/25180/307484')],
         [InlineKeyboardButton("🌐 Testnet X1Ecochain", url='https://t.me/c/2309219455/25180/298723')],
